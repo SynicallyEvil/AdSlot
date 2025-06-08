@@ -1,0 +1,175 @@
+global:
+  use_skulls_instead: true
+  can_player_buy_more_slots: false
+  public_announce: true
+  default_time: '7days'
+  messages:
+    help:
+      set: '&8&l(&c&l!&8&l) &7Example: &c/sponsor set <ID> <name>'
+      kick: '&8&l(&c&l!&8&l) &7Example: &c/sponsor kick <ID> &7-> &c/sponsor confirm'
+      edit: '&8&l(&c&l!&8&l) &7Example: &c/sponsor edit price <slot> <price> &7| &c&c/sponsor edit time <slot> 7days'
+      ban: '&8&l(&c&l!&8&l) &7Example: &c/sponsor ban/unban <player name>'
+      message: '&8&l(&c&l!&8&l) &7Example: &c/sponsor message <message>'
+      editmessage: '&8&l(&c&l!&8&l) &7Example: &c/sponsor editmessage <ID> <message>'
+      unlock_and_lock: '&8&l(&c&l!&8&l) &7Example: &c/sponsor <unlock|lock> <ID>'
+      real_help:
+        - '&c/sponsor help&7. Shows this menu.'
+        - '&c/sponsor message <message>&7. It sets the lore on your slot, if you currently own one.'
+      admin_help:
+        - '&c/sponsor announce&7. Toggles the public announcement message.'
+        - '&c/sponsor set <ID> <name>&7. Sets a player to a slot.'
+        - '&c/sponsor <unlock|lock> <ID>&7. Unlocks or locks a slot.'
+        - '&c/sponsor edit price <ID> <amount>&7. Edits the price for a slot.'
+        - '&c/sponsor edit time <ID> <time>&7. Edits the time for a lot.'
+        - '&c/sponsor kick <ID>&7 -> &c/sponsor confirm&7. Kicks the renter of that slot.'
+        - '&c/sponsor editmessage <ID> <message>&7 Sets the message of a slot.'
+    not_a_player: '&8&l(&c&l!&8&l) &7You must be a player.'
+    no_permissions: '&4You do not have access to execute that command!'
+    config_reload: '&aConfig has been reloaded!'
+    player_not_online: '&8&l(&c&l!&8&l) &7%arg& is not online!'
+    player_has_not_played_before: '&8&l(&c&l!&8&l) &7%arg& has not played on this server before!'
+    player_banned: '&8&l(&a&l!&8&l) &7%args% has been banned from the Sponsor!'
+    player_unbanned: '&8&l(&a&l!&8&l) &7%args% has been unbanned from the Sponsor!'
+    banned_message: '&8&l(&c&l!&8&l) &7You are banned from buying slots!'
+    unbanned_message: '&8&l(&a&l!&8&l) &7You are unbanned from buying slots!'
+    not_a_number: '&8&l(&c&l!&8&l) &7%arg% is not a number!'
+    not_a_valid_slot: '&8&l(&c&l!&8&l) &7That is not a valid slot number!'
+    slot_not_rented: '&8&l(&c&l!&8&l) &7That slot isn''t rented. Select a rented slot!'
+    slot_not_rentable: '&8&l(&c&l!&8&l) &7That slot is not available for purchase.'
+    slot_needs_permission: '&8&l(&c&l!&8&l) &7You need permission to buy that slot.'
+    cant_buy_more: '&8&l(&c&l!&8&l) &7You can not buy more than one slot at a time.'
+    cant_afford: '&8&l(&c&l!&8&l) &7You can not afford that slot!'
+    purchased_slot: '&8&l(&a&l!&8&l) &7You purchased a slot!'
+    price_updated: '&8&l(&a&l!&8&l) &7The price for that slot has been updated!'
+    time_updated: '&8&l(&a&l!&8&l) &7The time for that slot has been updated!'
+    slot_unlocked: '&8&l(&a&l!&8&l) &7That slot has been unlocked!'
+    slot_locked: '&8&l(&a&l!&8&l) &7That slot has been locked!'
+    slot_set: '&8&l(&a&l!&8&l) &7That slot now has a new member!'
+    slot_already_set: '&8&l(&c&l!&8&l) &7That slot already contains a member!'
+    slot_removed: '&8&l(&a&l!&8&l) &7Please type &c&l/sponsor confirm &7within 30 seconds!'
+    slot_removed_confirmed: '&8&l(&a&l!&8&l) &7That slot is been cleared!'
+    slot_removed_not_containing: '&8&l(&c&l!&8&l) &7You don''t appear to be kicking anyone from the list.'
+    slot_expired: '&8&l(&a&l!&8&l) &7Your slot has expired!'
+    slot_now_opened: '&8&l(&a&l!&8&l) &7Slot %slot% is now opened to buy!'
+    announce_toggled_on: '&8&l(&a&l!&8&l) &7Public announcement has been &aenabled&7!'
+    announce_toggled_off: '&8&l(&a&l!&8&l) &7Public announcement has been &cdisabled&7!'
+    message_updated: '&8&l(&a&l!&8&l) &7The message on your slot(s) have been updated!'
+    admin_message_updated: '&8&l(&a&l!&8&l) &7The message on that slot has been updated!'
+gui:
+  title: '&c&lSponsored Islands'
+  items:
+    fake_items:
+      item: STAINED_GLASS_PANE
+      id: 15
+      amount: 1
+      glowing: false
+      display_name: '&c&lSponsored Islands'
+      lore:
+        - 'View or purchase ad slots.'
+    rentable_items:
+      slot-1:
+        enabled: false
+        price: 1000000
+        default_time: '7days'
+        rented_status: false
+        permission_needed: true
+        glowing: true
+        item: STAINED_GLASS_PANE
+        amount: 1
+        unrented:
+          display_name: '&a&lRent me!'
+          id: 14
+          lore:
+            - 'Rentable slot for: $%price%'
+            - 'Click to buy!'
+        rented:
+          time: 0
+          rented_by: 'None'
+          display_name: '%player%'
+          id: 5
+          custom_message: ''
+          lore:
+            - 'Rented by: %player%'
+            - 'Time remaining: %time%'
+          messages:
+            - ''
+          commands:
+            - 'say %player% bought this slot.'
+      slot-2:
+        enabled: true
+        price: 1000000
+        default_time: '7days'
+        rented_status: false
+        permission_needed: false
+        glowing: true
+        item: STAINED_GLASS_PANE
+        amount: 2
+        unrented:
+          display_name: '&a&lRent me!'
+          id: 14
+          lore:
+            - 'Rentable slot for: $%price%'
+            - 'Click to buy!'
+        rented:
+          time: 0
+          rented_by: 'None'
+          display_name: '%player%'
+          id: 5
+          custom_message: ''
+          lore:
+            - 'Rented by: %player%'
+            - 'Time remaining: %time%'
+          commands:
+            - 'say %player% bought this slot.'
+      slot-3:
+        enabled: true
+        price: 1000000
+        default_time: '7days'
+        rented_status: false
+        permission_needed: false
+        glowing: true
+        item: STAINED_GLASS_PANE
+        amount: 3
+        unrented:
+          display_name: '&a&lRent me!'
+          id: 14
+          lore:
+            - 'Rentable slot for: $%price%'
+            - 'Click to buy!'
+        rented:
+          time: 0
+          rented_by: 'None'
+          display_name: '%player%'
+          id: 5
+          custom_message: ''
+          lore:
+            - 'Rented by: %player%'
+            - 'Time remaining: %time%'
+          commands:
+            - 'say %player% bought this slot.'
+      slot-4:
+        enabled: true
+        price: 1000000
+        default_time: '7days'
+        rented_status: false
+        permission_needed: false
+        glowing: true
+        item: STAINED_GLASS_PANE
+        amount: 4
+        unrented:
+          display_name: '&a&lRent me!'
+          id: 14
+          lore:
+            - 'Rentable slot for: $%price%'
+            - 'Click to buy!'
+        rented:
+          time: 0
+          rented_by: 'None'
+          display_name: '&%player%'
+          id: 5
+          custom_message: ''
+          lore:
+            - 'Rented by: %player%'
+            - 'Time remaining: %time%'
+          commands:
+            - 'say %player% bought this slot.'

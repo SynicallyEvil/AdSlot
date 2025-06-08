@@ -1,0 +1,14 @@
+name: AdSlot
+version: '1.0-SNAPSHOT'
+main: me.synicallyevil.adslot.AdSlot
+api-version: '1.21'
+prefix: AdSlot
+load: STARTUP
+authors: [ SynicallyEvil ]
+softdepend: [PlaceholderAPI, Vault]
+description: Let's players report bugs on the server.
+
+commands:
+  adslot:
+    description: Main AdSlot command.
+    aliases: [sponsor, adv, sponsors, advertisements]
